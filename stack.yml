@@ -24,15 +24,15 @@ services:
 #         cpu: 100
 #         memory: 16
   volumes:
-  - name: files
+  - name: wp-content
     size: 20
   links:
   - name: db
     service: mariadb
-  - name: content
-    service: content-nfs
+  - name: wp-content
+    service: wp-content-nfs
 
-- name: content-nfs
+- name: wp-content-nfs
   title: WP content NFS
   service: nfs-ganesha
   volumes:
