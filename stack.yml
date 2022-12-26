@@ -29,11 +29,11 @@ services:
   links:
   - name: db
     service: mariadb
-  - name: files
-    service: files-nfs
+  - name: content
+    service: content-nfs
 
-- name: files-nfs
-  title: Files NFS
+- name: content-nfs
+  title: WP content NFS
   service: nfs-ganesha
   volumes:
   - name: export
