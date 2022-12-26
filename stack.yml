@@ -29,6 +29,15 @@ services:
   links:
   - name: db
     service: mariadb
+  - name: files
+    service: files-nfs
+
+- name: files-nfs
+  title: Files NFS
+  service: nfs-ganesha
+  volumes:
+  - name: export
+    size: 25
 
 - name: nginx
   title: Nginx
