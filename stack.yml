@@ -33,9 +33,9 @@ services:
   - name: wp-content
     service: wp-content-nfs
 
-- name: wp-content-nfs
-  title: WP content NFS
-  service: nfs-ganesha
+- name: wp-content-files
+  title: WP content Files
+  service: nfs-provisioner
   volumes:
   - name: export
     size: 25
