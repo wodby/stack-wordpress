@@ -29,10 +29,10 @@ services:
   - name: db
     service: mariadb
   - name: wp-content
-    service: wp-content-storage
+    service: wp-content-nfs
 
-- name: wp-content-storage
-  title: WP content storage
+- name: wp-content-nfs
+  title: WP content NFS storage
   service: nfs-provisioner
   volumes:
   - name: export
