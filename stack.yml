@@ -10,8 +10,6 @@ services:
   options:
   - version: '8.3'
     default: true
-  - version: '8.2'
-  - version: '8.1'  
   derivatives:
   - name: sshd
     service: wordpress-php-sshd
@@ -31,7 +29,7 @@ services:
   - name: db
     service: mariadb
   - name: wp-content
-    service: wp-content-nfs
+    service: wp-content-storage
 
 - name: wp-content-storage
   title: WP content storage
