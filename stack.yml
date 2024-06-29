@@ -53,10 +53,10 @@ services:
   - name: data
     size: 10
 
-- name: redis
+- name: valkey
   required: false
-  title: Redis
-  service: redis
+  title: Valkey
+  service: valkey
 
 - name: cloud-mariadb
   title: Cloud MariaDB
