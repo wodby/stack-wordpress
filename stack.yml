@@ -35,7 +35,7 @@ services:
   title: WP content NFS storage
   service: nfs-provisioner
   volumes:
-  - name: export
+  - name: data
     size: 25
 
 - name: nginx
