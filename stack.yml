@@ -30,6 +30,20 @@ services:
     service: mariadb
   - name: wp-content
     service: wp-content-nfs
+  - name: sendmail
+    service: opensmtpd
+  - name: redis
+    service: valkey
+
+- name: varnish
+  title: Varnish
+  service: varnish
+  env:
+  - name: VARNISH_CONFIG_PRESET
+    value: wordpress
+  links:
+  - name: backend
+    service: nginx
 
 - name: wp-content-nfs
   title: WP content NFS storage
@@ -57,6 +71,16 @@ services:
   required: false
   title: Valkey
   service: valkey
+
+- name: opensmtpd
+  required: false
+  title: OpenSMTPD
+  service: opensmtpd
+
+- name: gotenberg
+  required: false
+  title: Gotenberg
+  service: gotenberg
 
 - name: cloud-mariadb
   title: Cloud MariaDB
