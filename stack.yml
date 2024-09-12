@@ -31,7 +31,7 @@ services:
   - name: wp-content
     service: wp-content-nfs
   - name: sendmail
-    service: opensmtpd
+    service: mailpit
   - name: redis
     service: valkey
 
@@ -69,8 +69,14 @@ services:
   title: Valkey
   service: valkey
 
+- name: mailpit
+  required: false
+  title: Mailpit
+  service: mailpit
+
 - name: opensmtpd
   required: false
+  disabled: true  
   title: OpenSMTPD
   service: opensmtpd
 
