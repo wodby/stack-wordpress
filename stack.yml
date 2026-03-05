@@ -8,8 +8,10 @@ services:
   service: wordpress-php
   required: true
   options:
-  - version: '8.3'
+  - version: '8.5'
+  - version: '8.4'
     default: true
+  - version: '8.3'
   derivatives:
   - name: sshd
     service: wordpress-php-sshd
@@ -35,9 +37,9 @@ services:
   - name: redis
     service: valkey
 
-- name: varnish
-  title: Varnish
-  service: wordpress-varnish
+- name: vinyl
+  title: Vinyl
+  service: wordpress-vinyl
   links:
   - name: backend
     service: nginx
