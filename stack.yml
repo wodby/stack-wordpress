@@ -15,15 +15,6 @@ services:
   derivatives:
   - name: sshd
     service: wordpress-php-sshd
-  containers:
-  - name: php
-    env:
-    - name: PHP_MEMORY_LIMIT
-      value: 512M
-#     resources:
-#       request:
-#         cpu: 100
-#         memory: 16
   volumes:
   - name: wp-content
     size: 20
@@ -36,6 +27,13 @@ services:
     service: mailpit
   - name: redis
     service: valkey
+  workloads:
+  - id: main
+    containers:
+    - name: php
+      env:
+      - name: PHP_MEMORY_LIMIT
+        value: 512M
 
 - name: vinyl
   title: Vinyl
