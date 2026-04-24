@@ -28,7 +28,7 @@ services:
   - name: redis
     service: valkey
   workloads:
-  - id: main
+  - name: main
     containers:
     - name: php
       env:
