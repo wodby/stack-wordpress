@@ -1,12 +1,34 @@
-# WordPress stack for Wodby
+# WordPress application stack for Kubernetes on Wodby
 
-Deploy WordPress on Kubernetes with [Wodby](https://wodby.com). This repository
-contains the `stack.yml` manifest used by the public WordPress stack in the
-Wodby catalog.
+Deploy WordPress applications on Kubernetes with Wodby.
 
-- [WordPress stack in the Wodby catalog](https://wodby.com/stacks/wordpress)
+This repository defines the Wodby stack manifests and default service
+composition for WordPress.
+
+- [Browse Wodby application stacks](https://wodby.com/stacks)
 - [Wodby stack documentation](https://wodby.com/docs/2.0/stacks/)
 - [Stack manifest reference](https://wodby.com/docs/2.0/stacks/template/)
+
+## Start from a template
+
+Use one of the compatible source templates exposed by this stack's services to
+start with Wodby CI build configuration:
+
+- [Vanilla WordPress](https://github.com/wodby/wordpress-vanilla)
+
+## Service definitions
+
+- [PHP (WordPress) service](https://github.com/wodby/service-wordpress-php)
+- [Vinyl (WordPress) service](https://github.com/wodby/service-wordpress-vinyl)
+- [Ganesha NFS provisioner service](https://github.com/wodby/service-nfs-provisioner)
+- [Nginx (WordPress) service](https://github.com/wodby/service-wordpress-nginx)
+- [MariaDB service](https://github.com/wodby/service-mariadb)
+- [Valkey service](https://github.com/wodby/service-valkey)
+- [Mailpit service](https://github.com/wodby/service-mailpit)
+- [OpenSMTPD service](https://github.com/wodby/service-opensmtpd)
+- [Gotenberg service](https://github.com/wodby/service-gotenberg)
+- [Cloud MariaDB service](https://github.com/wodby/service-cloud-mariadb)
+- [Cloud MySQL service](https://github.com/wodby/service-cloud-mysql)
 
 ## What's included
 
@@ -30,43 +52,29 @@ The PHP service also has a 20 GB `wp-content` volume and an optional SSH
 derivative. Service links connect PHP to the selected database, shared storage,
 mail service, and cache.
 
-## Use this stack
+## Deploy this stack
 
-The simplest path is to add the
-[public WordPress stack](https://wodby.com/stacks/wordpress) from the Wodby
-catalog. Review the enabled services, versions, storage sizes, and other
-defaults when creating your app.
+Start from [Vanilla WordPress](https://github.com/wodby/wordpress-vanilla), or connect your own compatible source
+repository.
 
-To maintain your own version of the stack:
+Review service versions, storage, links, and optional components when creating
+the application. The same stack can be reused across development, staging, and
+production environments.
+
+## Maintain a custom version
 
 1. Fork this repository.
-2. Edit [`stack.yml`](stack.yml).
-3. Import the repository as a
-   [Git-backed stack](https://wodby.com/docs/2.0/stacks/create/#create-a-git-backed-stack).
+2. Edit the stack manifest.
+3. Import the repository as a [Git-backed stack](https://wodby.com/docs/2.0/stacks/create/#create-a-git-backed-stack).
 
-Wodby imports the manifest from the selected Git branch or tag and creates a
-new stack revision when the Git-backed stack is updated.
+When replacing or renaming a stack service, update every related link target
+and derivative reference. Stack-local names and referenced service names are
+distinct identifiers.
 
-## Customize the manifest
-
-Common changes include:
-
-- selecting another default PHP version;
-- changing persistent volume sizes;
-- enabling or disabling optional services;
-- replacing Mailpit with OpenSMTPD for outbound email; and
-- replacing the in-cluster MariaDB service with a cloud database service.
-
-When changing a linked service, update the corresponding `services[].links`
-target as well. For example, point PHP's `db` link at the cloud database service
-before disabling the in-cluster `mariadb` service.
-
-Validate a customized manifest with the Wodby CLI before importing it:
+Validate the manifests with:
 
 ```bash
 wodby stack validate-manifest stack.yml --org <org-id>
 ```
 
-See the [stack manifest reference](https://wodby.com/docs/2.0/stacks/template/)
-for every supported field and the [managed services
-index](https://github.com/wodby/services) for available service references.
+See the [stack manifest reference](https://wodby.com/docs/2.0/stacks/template/) and the [managed services index](https://github.com/wodby/services).
