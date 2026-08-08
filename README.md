@@ -6,6 +6,7 @@ This repository defines the Wodby stack manifests and default service
 composition for WordPress.
 
 - [Browse Wodby application stacks](https://wodby.com/stacks)
+- [WordPress stack guide](https://wodby.com/docs/2.0/stacks/catalog/wordpress/)
 - [Wodby stack documentation](https://wodby.com/docs/2.0/stacks/)
 - [Stack manifest reference](https://wodby.com/docs/2.0/stacks/template/)
 
