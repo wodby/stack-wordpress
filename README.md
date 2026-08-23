@@ -5,6 +5,11 @@ Deploy WordPress applications on Kubernetes with Wodby.
 This repository defines the Wodby stack manifests and default service
 composition for WordPress.
 
+<!-- wodby:generated:start -->
+
+## Stack contract
+
+- [WordPress stack on Wodby](https://wodby.com/stacks/wordpress)
 - [Browse Wodby application stacks](https://wodby.com/stacks)
 - [WordPress stack guide](https://wodby.com/docs/2.0/stacks/catalog/wordpress/)
 - [Wodby stack documentation](https://wodby.com/docs/2.0/stacks/)
@@ -33,25 +38,31 @@ start with Wodby CI build configuration:
 
 ## What's included
 
-| Component | Purpose | Default configuration |
-| --- | --- | --- |
-| WordPress PHP | WordPress runtime | Required; PHP 8.4 by default, with PHP 8.3 and 8.5 available; 512 MB PHP memory limit |
-| Nginx | Web server in front of PHP | Required |
-| Vinyl | HTTP caching proxy in front of Nginx | Enabled and optional |
-| NFS provisioner | Shared storage for `wp-content` | Enabled and optional; 25 GB data volume |
-| MariaDB | WordPress database | Enabled and optional; 10 GB data volume |
-| Valkey | Object cache | Enabled and optional |
-| Mailpit | Email testing | Enabled and optional |
-| Gotenberg | Document and PDF conversion | Enabled and optional |
-| OpenSMTPD | Outbound email | Disabled and optional |
-| Cloud MariaDB / MySQL | External database alternatives | Disabled and optional |
+| Component / service | Default configuration |
+| --- | --- |
+| PHP<br>`php` | required; enabled by default; volumes: `wp-content` 20 GB; links: `db` → `mariadb`, `wp-content` → `wp-content-nfs`, `sendmail` → `mailpit`, `redis` → `valkey` |
+| Vinyl<br>`vinyl` | optional; enabled by default; links: `backend` → `nginx` |
+| WP content NFS storage<br>`wp-content-nfs` | optional; enabled by default; volumes: `data` 25 GB |
+| Nginx<br>`nginx` | required; enabled by default; links: `backend` → `php` |
+| MariaDB<br>`mariadb` | optional; enabled by default; volumes: `data` 10 GB |
+| Valkey<br>`valkey` | optional; enabled by default |
+| Mailpit<br>`mailpit` | optional; enabled by default |
+| OpenSMTPD<br>`opensmtpd` | optional; disabled by default |
+| Gotenberg<br>`gotenberg` | optional; enabled by default |
+| Cloud MariaDB<br>`cloud-mariadb` | optional; disabled by default |
+| Cloud MySQL<br>`cloud-mysql` | optional; disabled by default |
 
-In this table, enabled optional services are selected by default but can be
-excluded when an app is created. Required services cannot be excluded.
+Enabled optional services are selected by default but can be excluded when an
+app is created. Disabled optional services are available but not selected by
+default. Required services cannot be excluded.
 
-The PHP service also has a 20 GB `wp-content` volume and an optional SSH
-derivative. Service links connect PHP to the selected database, shared storage,
-mail service, and cache.
+## Validate the stack manifest
+
+```bash
+wodby stack validate-manifest stack.yml --org <org-id>
+```
+
+<!-- wodby:generated:end -->
 
 ## Deploy this stack
 
@@ -71,11 +82,3 @@ production environments.
 When replacing or renaming a stack service, update every related link target
 and derivative reference. Stack-local names and referenced service names are
 distinct identifiers.
-
-Validate the manifests with:
-
-```bash
-wodby stack validate-manifest stack.yml --org <org-id>
-```
-
-See the [stack manifest reference](https://wodby.com/docs/2.0/stacks/template/) and the [managed services index](https://github.com/wodby/services).
